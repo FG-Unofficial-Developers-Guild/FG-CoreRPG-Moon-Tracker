@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root version="3.0">
+	<properties>
+		<name>Moon Tracker (Modified)</name>
+		<version>2.2</version>
+		<author>Andraax</author>
+		<description>An extension for tracking the phases of the moons for your campaign world.</description>
+	</properties>
+	
+	<announcement text="An extension for tracking the phases of the moons for your campaign world.\nMaintained by Andraax and bmos - originally written by DMFirmy." font="emotefont" icon="moonphase3" />
+
+	<base>
+		<!-- Graphics -->
+		<includefile source="graphics/graphics_frames.xml" />
+		<includefile source="graphics/graphics_icons.xml" />
+
+		<!-- Strings -->
+		<includefile source="strings/strings_moontracker.xml" />
+
+		<!-- High-level scripts -->
+		<script name="MoonManager" file="scripts/manager_moon.lua" />
+
+		<!-- Utilities -->
+		<includefile source="utility/template_moon.xml" />
+		<includefile source="utility/utility_calendar.xml" />
+		<includefile source="utility/utility_moon.xml" />
+
+	</base>
+</root>

@@ -1,2 +1,8 @@
-# FG-CoreRPG-Moon-Tracker
- An extension for Fantasy Grounds that improves upon the functionality for the built-in calendar function by allowing it to track the phases of the moon(s).
+# Moon-Tracker
+This is an extension for Fantasy Grounds that improves upon the functionality for the built-in calendar function by allowing it to track the phases for the moons in your campaign. A new button has been added to the Calendar window for configuring the moons for your campaign. Clicking this button opens up a configuration window, allowing you to add as many moons for your campaign as you wish, defining their names, phase periods, and phase shift. Once configured, clicking on any day on the calendar will display the moon phases for that day in a new panel that has been added to the calendar window.
+
+![](http://s3.silent-tower.org/images/2014-12-02+07_44_38-Fantasy+Grounds.png)
+![](http://s3.silent-tower.org/images/2014-12-02+07_44_54-Fantasy+Grounds.png)
+![](http://s3.silent-tower.org/images/2014-12-02+07_45_11-Fantasy+Grounds.png)
+
+This extension is designed to work out-of-the-box for all campaigns that use one of the pre-build calendars. For rulesets that use a custom calendar that requires registering for the CalendarManager events registerChangeCallback, registerLunarDayHandler, or registerMonthVarHandler, this extension will also work with a bit of additional configuration. From within your ruleset you will need to make sure that the above registrations occur after the extension has been loaded. A good way to do this is to register the Interface.onDesktopInit event and to register your callbacks with the CalendarManager within this function.

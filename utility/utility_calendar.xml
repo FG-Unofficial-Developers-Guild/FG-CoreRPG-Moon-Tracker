@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root>
+	<windowclass name="calendar_main" merge="merge">
+		<script file="utility/scripts/calendar_log.lua" />
+		<sheetdata>
+			<!-- This button will open up the Moon Configuration window -->
+			<buttoncontrol name="button_moon">
+				<anchored to="dateframe" position="insidetopleft" offset="55,22" width="25" height="25" />
+				<icon normal="button_moon" pressed="button_moon_down" />
+				<tooltip textres="moontracker_tooltip_moonbutton" />
+				<gmvisibleonly />
+				<script>
+					<script>
+						function onButtonPress()
+							local oNode = DB.findNode("moons.moonlist");
+							if oNode then
+								local oWindow = Interface.openWindow("moontracker_configuration",oNode.getNodeName());
+								oWindow.registerCloseCallback(onMoonTrackerConfigurationClosed);
+								if oWindow and oWindow.name then
+									oWindow.name.setFocus();
+								end
+							end
+						end
+
+						function onMoonTrackerConfigurationClosed()
+							window.populateMoonPhaseDisplay();
+						end
+					</script>
+				</script>
+			</buttoncontrol>
+
+			<!-- This list shows the phases for each moon, if they are defined.-->
+			<windowlist name="moons">
+				<bounds>25,75,-30,30</bounds>
+				<frame name="groupbox" offset="15,15,20,15" />
+				<class>moonphase</class>
+				<columns width="155" fillwidth="true" />
+				<skipempty />
+				<script>
+						function addEntry(oMoon, nEpoch)
+								local oWindow = createWindow();
+								local phase = MoonManager.calculatePhase(oMoon, nEpoch);
+								local name = MoonManager.getPhaseName(phase);
+								oWindow["name"].setValue(name);
+								oWindow["moonname"].setValue(oMoon.getChild("name").getValue());
+								oWindow["phaseicon"].setIcon("moonphase"..tostring(phase));
+								return oWindow;
+						end
+				</script>
+			</windowlist>
+			<scrollbar_moons />
+
+			<!-- Adjust position of list -->
+			<windowlist name="list">
+					<bounds>25,135,-30,-65</bounds>
+			</windowlist>
+
+		</sheetdata>
+	</windowclass>
+
+	<!-- This represents the phase for the selected calendar day for a single moon. -->
+	<windowclass name="moonphase">
+		<sheetdata>
+			<anchor_column name="columnanchor" />
+			<simplestring name="moonname">
+				<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="5" />
+					<left parent="columnanchor" anchor="right" relation="relative" offset="10" />
+					<right />
+				</anchored>
+			</simplestring>
+			<simplestring name="name">
+				<anchored>
+					<top parent="moonname" anchor="bottom" relation="relative" offset="0" />
+					<left parent="moonname" anchor="left" relation="relative" offset="0" />
+					<right />
+				</anchored>
+			</simplestring>
+			<genericcontrol name="phaseicon">
+				<anchored width="24" height="24">
+					<top parent="columnanchor" anchor="bottom" relation="absolute" offset="5" />
+					<left parent="columnanchor" anchor="right" relation="absolute" offset="115" />
+				</anchored>
+			</genericcontrol>
+		</sheetdata>
+	</windowclass>
+</root>
