@@ -6,3 +6,15 @@ This is an extension for Fantasy Grounds that improves upon the functionality fo
 ![](http://s3.silent-tower.org/images/2014-12-02+07_45_11-Fantasy+Grounds.png)
 
 This extension is designed to work out-of-the-box for all campaigns that use one of the pre-build calendars. For rulesets that use a custom calendar that requires registering for the CalendarManager events registerChangeCallback, registerLunarDayHandler, or registerMonthVarHandler, this extension will also work with a bit of additional configuration. From within your ruleset you will need to make sure that the above registrations occur after the extension has been loaded. A good way to do this is to register the Interface.onDesktopInit event and to register your callbacks with the CalendarManager within this function.
+
+# Basic tutorial:
+1. Load extension into campaign
+2. Open Calendar via button in upper right
+3. Click icon of moon in upper left of calendar window (must already have a calendar set up)
+4. Click edit and then add a moon (allows worlds with multiple moons--very cool!)
+5. Close moons list and click a day on the calendar to see what the lunar phase is for that day
+
+# Options:
+* Period: how many solar days it takes to repeat the lunar cycle
+* Duration: how long the full moon and new moon last (for things like lycanthropy that may only last a single night)
+* Shift: move the entire lunar cycle forward/backward to align with other events like holidays
