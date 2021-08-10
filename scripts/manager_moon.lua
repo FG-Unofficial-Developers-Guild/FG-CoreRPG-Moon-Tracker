@@ -6,11 +6,6 @@ local aMoonPhases = { -- String names for each moon phase
 };
 
 function onInit()
-	-- send launch message
-	local msg = {sender = "", font = "emotefont"};
-	msg.text = "DMFirmy's Moon Tracker loaded.";
-	ChatManager.registerLaunchMessage(msg);
-
 	if Session.IsHost then
 		initializeDatabase();
 	end
