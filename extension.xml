@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <root version="3.0">
 	<properties>
-		<name>Moon Tracker</name>
+		<name>Feature: Moon Tracker</name>
 		<version>2.3</version>
 		<author>Andraax</author>
 		<description>An extension for tracking the phases of the moons for your campaign world.</description>
