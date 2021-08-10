@@ -29,7 +29,6 @@ function initializeDatabase()
 	DB.createNode("moons.epochday", "number");
 	DB.createNode("moons.epochyear", "number");
 	DB.createNode("moons.moonlist");
-
 end
 
 ---
