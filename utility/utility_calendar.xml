@@ -37,15 +37,15 @@
 				<columns width="155" fillwidth="true" />
 				<skipempty />
 				<script>
-						function addEntry(oMoon, nEpoch)
-								local oWindow = createWindow();
-								local phase = MoonManager.calculatePhase(oMoon, nEpoch);
-								local name = MoonManager.getPhaseName(phase);
-								oWindow["name"].setValue(name);
-								oWindow["moonname"].setValue(oMoon.getChild("name").getValue());
-								oWindow["phaseicon"].setIcon("moonphase"..tostring(phase));
-								return oWindow;
-						end
+					function addEntry(oMoon, nEpoch)
+						local oWindow = createWindow();
+						local phase = MoonManager.calculatePhase(oMoon, nEpoch);
+						local name = MoonManager.getPhaseName(phase);
+						oWindow["name"].setValue(name);
+						oWindow["moonname"].setValue(oMoon.getChild("name").getValue());
+						oWindow["phaseicon"].setIcon("moonphase"..tostring(phase));
+						return oWindow;
+					end
 				</script>
 			</windowlist>
 			<scrollbar_moons />
