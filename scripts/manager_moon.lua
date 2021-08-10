@@ -64,7 +64,7 @@ end
 function getMoons()	
 	local tMoons = DB.getChildren("moons.moonlist");
 	local aMoons = {};
-			
+
 	for k,v in pairs(tMoons) do
 		table.insert(aMoons, v);
 	end
