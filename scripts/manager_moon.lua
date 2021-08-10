@@ -5,10 +5,47 @@ local aMoonPhases = { -- String names for each moon phase
 	"New Moon", "Evening Crescent", "First Quarter", "Waxing Gibbous", "Full Moon", "Waning Gibbous", "Last Quarter", "Morning Crescent"
 };
 
+local outputDate_old
+local function outputDate_new()
+	local msg = {sender = "", font = "chatfont", icon = "portrait_gm_token", mode = "story"};
+	msg.text = Interface.getString("message_calendardate") .. " " .. CalendarManager.getCurrentDateString();
+
+	local aMoons = getMoons();
+	if aMoons then
+		local nEpoch = DB.getValue("moons.epochday", 0);
+		
+		local nMonth = CalendarManager.getCurrentMonth();
+		local nDay = CalendarManager.getCurrentDay();
+		local days;
+		for i = 1, nMonth do
+			if i == nMonth then
+				days = nDay;
+			else
+				days = CalendarManager.getDaysInMonth(i);
+			end
+
+			nEpoch = nEpoch + days;
+		end
+
+		for _,moon in ipairs(aMoons) do
+			local sMoonName = DB.getValue(moon, "name", "");
+			local nPhase = calculatePhase(moon, nEpoch);
+			local sPhaseName = getPhaseName(nPhase);
+			msg.icon = "moonphase" .. tostring(nPhase);
+			msg.text = msg.text .. "\n".. sMoonName .. "'s phase is " .. sPhaseName;
+		end
+	end
+
+	Comm.deliverChatMessage(msg);
+end
+
 function onInit()
 	if Session.IsHost then
 		initializeDatabase();
 	end
+
+	outputDate_old = CalendarManager.outputDate;
+	CalendarManager.outputDate = outputDate_new;
 end
 
 ---
