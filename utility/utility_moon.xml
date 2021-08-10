@@ -36,27 +36,27 @@
 			</genericcontrol>
 
 			<label name="shift_label">
-				<anchored to="configframe" width="30" height="20">
+				<anchored to="configframe" width="50" height="20">
 					<top offset="40" />
-					<right parent="idelete_header" anchor="left" relation="relative" offset="-5" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-17" />
 				</anchored>
 				<center />
 				<static textres="moontracker_configuration_shift_header" />
 				<tooltip textres="moontracker_configuration_shift_tooltip" />
 			</label>
 			<label name="duration_label">
-				<anchored to="configframe" width="30" height="20">
+				<anchored to="configframe" width="50" height="20">
 					<top offset="40" />
-					<right parent="shift_label" anchor="left" relation="relative" offset="-5" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-4" />
 				</anchored>
 				<center />
 				<static textres="moontracker_configuration_duration_header" />
 				<tooltip textres="moontracker_configuration_duration_tooltip" />
 			</label>
 			<label name="period_label">
-				<anchored to="configframe" width="40" height="20">
+				<anchored to="configframe" width="50" height="20">
 					<top offset="40" />
-					<right parent="duration_label" anchor="left" relation="relative" offset="-10" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-6" />
 				</anchored>
 				<static textres="moontracker_configuration_period_header" />
 				<tooltip textres="moontracker_configuration_period_tooltip" />
@@ -112,7 +112,7 @@
 				</anchored>
 			</button_idelete>
 			<number_moon name="shift">
-				<anchored width="20" height="20">
+				<anchored width="45" height="20">
 					<top offset="2" />
 					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
 				</anchored>
@@ -121,25 +121,25 @@
 				<default>0</default>
 			</number_moon>
 			<number_moon name="duration">
-				<anchored width="20" height="20">
+				<anchored width="45" height="20">
 					<top offset="2" />
-					<right parent="shift" anchor="left" relation="relative" offset="-10" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
 				</anchored>
 				<delaykeyupdate />
 				<tabtarget next="shift" prev="period" />
 				<default>1</default>
 			</number_moon>
 			<number_moon name="period">
-				<anchored width="30" height="20">
+				<anchored width="45" height="20">
 					<top offset="2" />
-					<right parent="duration" anchor="left" relation="relative" offset="-10" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
 				</anchored>
 				<tabtarget next="duration" prev="name"/>
 				<default>30</default>
 			</number_moon>
 			<string_textlistitem name="name">
 				<anchored position="insidetopleft" offset="10,2" height="20">
-					<right parent="period" anchor="left" relation="relative" offset="-10" />
+					<right parent="rightanchor" anchor="left" relation="relative" offset="-10" />
 				</anchored>
 				<tabtarget next="period" />
 			</string_textlistitem>
