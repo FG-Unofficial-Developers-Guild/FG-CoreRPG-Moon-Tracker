@@ -43,7 +43,7 @@
 						local name = MoonManager.getPhaseName(phase);
 						oWindow["name"].setValue(name);
 						oWindow["moonname"].setValue(oMoon.getChild("name").getValue());
-						oWindow["phaseicon"].setIcon("moonphase"..tostring(phase));
+						oWindow["phaseicon"].setIcon("moonphase" .. tostring(phase));
 						return oWindow;
 					end
 				</script>
