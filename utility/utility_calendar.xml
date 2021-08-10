@@ -64,21 +64,21 @@
 			<anchor_column name="columnanchor" />
 			<simplestring name="moonname">
 				<anchored>
-					<top parent="columnanchor" anchor="bottom" relation="relative" offset="5" />
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
 					<left parent="columnanchor" anchor="right" relation="relative" offset="10" />
 					<right />
 				</anchored>
 			</simplestring>
 			<simplestring name="name">
 				<anchored>
-					<top parent="moonname" anchor="bottom" relation="relative" offset="0" />
+					<top parent="moonname" anchor="bottom" relation="relative" offset="-5" />
 					<left parent="moonname" anchor="left" relation="relative" offset="0" />
 					<right />
 				</anchored>
 			</simplestring>
 			<genericcontrol name="phaseicon">
 				<anchored width="24" height="24">
-					<top parent="columnanchor" anchor="bottom" relation="absolute" offset="5" />
+					<top parent="columnanchor" anchor="bottom" relation="absolute" offset="8" />
 					<left parent="columnanchor" anchor="right" relation="absolute" offset="115" />
 				</anchored>
 			</genericcontrol>
