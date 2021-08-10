@@ -5,10 +5,6 @@ local aMoonPhases = { -- String names for each moon phase
 	"New Moon", "Evening Crescent", "First Quarter", "Waxing Gibbous", "Full Moon", "Waning Gibbous", "Last Quarter", "Morning Crescent"
 };
 
----
---- This function has been modified to include a launch message and perform some initialization that the CoreRPG
---- implementation of this file does not perform.
----
 function onInit()
 	-- send launch message
 	local msg = {sender = "", font = "emotefont"};
