@@ -48,7 +48,7 @@ function calculateEpochDay()
 
 	local epochyear = DB.getValue("moons.epochyear", 0);
 	local epoch = DB.getValue("moons.epochday", 0);
-	local aMoons = getMoons();
+	-- local aMoons = getMoons();
 
 	if epochyear ~= nYear - 1 then
 		epoch = getEpochDay(nYear, nMonths);
