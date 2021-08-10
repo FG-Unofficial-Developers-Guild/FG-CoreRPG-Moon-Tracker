@@ -7,8 +7,7 @@ local aMoonPhases = { -- String names for each moon phase
 
 local outputDate_old
 local function outputDate_new()
-	local msg = {sender = "", font = "chatfont", icon = "portrait_gm_token", mode = "story"};
-	msg.text = Interface.getString("message_calendardate") .. " " .. CalendarManager.getCurrentDateString();
+	outputDate_old()
 
 	local aMoons = getMoons();
 	if aMoons then
@@ -28,15 +27,16 @@ local function outputDate_new()
 		end
 
 		for _,moon in ipairs(aMoons) do
+			local msg = {sender = "", font = "chatfont", icon = "portrait_gm_token", mode = "story"};
 			local sMoonName = DB.getValue(moon, "name", "");
 			local nPhase = calculatePhase(moon, nEpoch);
 			local sPhaseName = getPhaseName(nPhase);
+			msg.text = sMoonName .. "'s phase is " .. sPhaseName;
 			msg.icon = "moonphase" .. tostring(nPhase);
-			msg.text = msg.text .. "\n".. sMoonName .. "'s phase is " .. sPhaseName;
+			Comm.deliverChatMessage(msg);
 		end
 	end
 
-	Comm.deliverChatMessage(msg);
 end
 
 function onInit()
