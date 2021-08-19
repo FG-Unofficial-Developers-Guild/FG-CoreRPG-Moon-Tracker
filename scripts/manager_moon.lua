@@ -6,8 +6,8 @@ local aMoonPhases = { -- String names for each moon phase
 };
 
 local outputDate_old
-local function outputDate_new()
-	outputDate_old()
+local function outputDate_new(...)
+	outputDate_old(...)
 
 	local aMoons = getMoons();
 	if aMoons then
