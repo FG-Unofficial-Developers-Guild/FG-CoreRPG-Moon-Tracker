@@ -1,4 +1,6 @@
-# Moon-Tracker
+[![Build FG-Usable File](https://github.com/FG-Unofficial-Developers-Guild/FG-CoreRPG-Moon-Tracker/actions/workflows/create-ext.yml/badge.svg)](https://github.com/FG-Unofficial-Developers-Guild/FG-CoreRPG-Moon-Tracker/actions/workflows/create-ext.yml) [![Luacheck](https://github.com/FG-Unofficial-Developers-Guild/FG-CoreRPG-Moon-Tracker/actions/workflows/luacheck.yml/badge.svg)](https://github.com/FG-Unofficial-Developers-Guild/FG-CoreRPG-Moon-Tracker/actions/workflows/luacheck.yml)
+
+# Moon Tracker
 This is an extension for Fantasy Grounds that improves upon the functionality for the built-in calendar function by allowing it to track the phases for the moons in your campaign. A new button has been added to the Calendar window for configuring the moons for your campaign. Clicking this button opens up a configuration window, allowing you to add as many moons for your campaign as you wish, defining their names, phase periods, and phase shift. Once configured, clicking on any day on the calendar will display the moon phases for that day in a new panel that has been added to the calendar window.
 
 ![Screenshot of Moon Tracker Windows and Chat Output](https://user-images.githubusercontent.com/1916835/128919380-d1e7ee91-311f-4529-bc8e-cbe439fdce91.png)
