@@ -1,4 +1,4 @@
--- 
+--
 -- Please see the LICENSE.md file included with this distribution for attribution and copyright information.
 --
 
@@ -12,16 +12,16 @@ local nSelDay = 0;
 function onInit()
 	DB.addHandler("calendar.log", "onChildUpdate", onEventsChanged);
 	buildEvents();
-	
+
 	DB.addHandler("moons.moonlist","onChildAdded", onMoonCountUpdated);
 	DB.addHandler("moons.moonlist","onChildDeleted", onMoonCountUpdated);
-	
+
 	CalendarManager.registerChangeCallback(onCalendarChangedMoonTracker);
 	nSelMonth = currentmonth.getValue();
 	nSelDay = currentday.getValue();
 
 	onDateChanged();
-end								
+end
 
 ---
 --- This function has been modified to remove the new handlers added in the onInit() function.
@@ -34,12 +34,12 @@ end
 
 function buildEvents()
 	aEvents = {};
-	
+
 	for _,v in pairs(DB.getChildren("calendar.log")) do
 		local nYear = DB.getValue(v, "year", 0);
 		local nMonth = DB.getValue(v, "month", 0);
 		local nDay = DB.getValue(v, "day", 0);
-		
+
 		if not aEvents[nYear] then
 			aEvents[nYear] = {};
 		end
@@ -76,7 +76,7 @@ end
 
 function addLogEntry(nMonth, nDay)
 	local nYear = CalendarManager.getCurrentYear();
-	
+
 	local nodeEvent;
 	if aEvents[nYear] and aEvents[nYear][nMonth] and aEvents[nYear][nMonth][nDay] then
 		nodeEvent = aEvents[nYear][nMonth][nDay];
@@ -84,7 +84,7 @@ function addLogEntry(nMonth, nDay)
 		local nodeLog = DB.createNode("calendar.log");
 		bEnableBuild = false;
 		nodeEvent = nodeLog.createChild();
-		
+
 		DB.setValue(nodeEvent, "epoch", "string", DB.getValue("calendar.current.epoch", ""));
 		DB.setValue(nodeEvent, "year", "number", nYear);
 		DB.setValue(nodeEvent, "month", "number", nMonth);
@@ -101,15 +101,15 @@ end
 
 function removeLogEntry(nMonth, nDay)
 	local nYear = CalendarManager.getCurrentYear();
-	
+
 	if aEvents[nYear] and aEvents[nYear][nMonth] and aEvents[nYear][nMonth][nDay] then
 		local nodeEvent = aEvents[nYear][nMonth][nDay];
-		
+
 		local bDelete = false;
 		if Session.IsHost then
 			bDelete = true;
 		end
-		
+
 		if bDelete then
 			nodeEvent.delete();
 		end
@@ -155,12 +155,12 @@ function updateDisplay()
 	local nCampaignYear = currentyear.getValue();
 	local nCampaignMonth = currentmonth.getValue();
 	local nCampaignDay = currentday.getValue();
-	
+
 	local sDate = CalendarManager.getDateString(sCampaignEpoch, nCampaignYear, nCampaignMonth, nCampaignDay, true, true);
 	viewdate.setValue(sDate);
 
-	if aEvents[nCampaignYear] and 
-			aEvents[nCampaignYear][nSelMonth] and 
+	if aEvents[nCampaignYear] and
+			aEvents[nCampaignYear][nSelMonth] and
 			aEvents[nCampaignYear][nSelMonth][nSelDay] then
 		button_view.setVisible(true);
 		button_addlog.setVisible(false);
@@ -168,7 +168,7 @@ function updateDisplay()
 		button_view.setVisible(false);
 		button_addlog.setVisible(true);
 	end
-	
+
 	for _,v in pairs(list.getWindows()) do
 		local nMonth = v.month.getValue();
 
@@ -180,13 +180,13 @@ function updateDisplay()
 		if nMonth == nSelMonth then
 			bLogMonth = true;
 		end
-			
+
 		if bCampaignMonth then
 			v.label_period.setColor("5A1E33");
 		else
 			v.label_period.setColor("000000");
 		end
-		
+
 		for _,y in pairs(v.list_days.getWindows()) do
 			local nDay = y.day.getValue();
 			if nDay > 0 then
@@ -194,11 +194,11 @@ function updateDisplay()
 				if aEvents[nCampaignYear] and aEvents[nCampaignYear][nMonth] and aEvents[nCampaignYear][nMonth][nDay] then
 					nodeEvent = aEvents[nCampaignYear][nMonth][nDay];
 				end
-				
+
 				local bHoliday = CalendarManager.isHoliday(nMonth, nDay);
 				local bCurrDay = (bCampaignMonth and nDay == nCampaignDay);
 				local bSelDay = (bLogMonth and nDay == nSelDay);
-				
+
 				y.setState(bCurrDay, bSelDay, bHoliday, nodeEvent);
 			end
 		end
@@ -235,7 +235,7 @@ function populateMoonPhaseDisplay(nMonth, nDay)
 				self.moons.addEntry(m, epoch);
 			end
 		end
-		
+
 	end
 end
 
@@ -246,7 +246,7 @@ end
 function setMoonFrame()
 	local hasMoons = false;
 	local moons = DB.getChildren("moons.moonlist");
-    for _,v in pairs(moons) do
+    for _,v in pairs(moons) do --luacheck: ignore
         hasMoons = true;
         break;
     end

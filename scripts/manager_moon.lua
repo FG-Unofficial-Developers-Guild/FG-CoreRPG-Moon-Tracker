@@ -1,6 +1,8 @@
- ---
- --- This array holds the string names for each moon phase.
- ---
+--
+-- Please see the LICENSE.md file included with this distribution for attribution and copyright information.
+--
+
+-- This array holds the string names for each moon phase.
 local aMoonPhases = { -- String names for each moon phase
 	"New Moon", "Evening Crescent", "First Quarter", "Waxing Gibbous", "Full Moon", "Waning Gibbous", "Last Quarter", "Morning Crescent"
 };
@@ -12,7 +14,7 @@ local function outputDate_new(...)
 	local aMoons = getMoons();
 	if aMoons then
 		local nEpoch = DB.getValue("moons.epochday", 0);
-		
+
 		local nMonth = CalendarManager.getCurrentMonth();
 		local nDay = CalendarManager.getCurrentDay();
 		local days;
@@ -49,7 +51,7 @@ function onInit()
 end
 
 ---
---- This function gets the string name for the current moon phase. 
+--- This function gets the string name for the current moon phase.
 ---
 function getPhaseName(nPhase)
 	return aMoonPhases[nPhase];
@@ -74,35 +76,35 @@ end
 function calculateEpochDay()
 	local nYear = CalendarManager.getCurrentYear();
 	local nMonths = CalendarManager.getMonthsInYear();
-	local nFirstDay = CalendarManager.getLunarDay(nYear, 1, 1);
-	local nDaysInWeek = CalendarManager.getDaysInWeek();
+	-- local nFirstDay = CalendarManager.getLunarDay(nYear, 1, 1);
+	-- local nDaysInWeek = CalendarManager.getDaysInWeek();
 
 	local epochyear = DB.getValue("moons.epochyear", 0);
-	local epoch = DB.getValue("moons.epochday", 0);
+	-- local epoch = DB.getValue("moons.epochday", 0);
 	-- local aMoons = getMoons();
 
 	if epochyear ~= nYear - 1 then
-		epoch = getEpochDay(nYear, nMonths);
-		
+		local epoch = getEpochDay(nYear, nMonths);
+
 		DB.setValue("moons.epochyear", "number", nYear - 1);
 		DB.setValue("moons.epochday", "number", epoch);
 	end
 
-	for nCurrentMonth = 1, nMonths do
-		for nCurrentDay = 1, CalendarManager.getDaysInMonth(nCurrentMonth) do
-			epoch = epoch + 1;
-		end
-	end
+	-- for nCurrentMonth = 1, nMonths do
+		-- for nCurrentDay = 1, CalendarManager.getDaysInMonth(nCurrentMonth) do
+			-- epoch = epoch + 1;
+		-- end
+	-- end
 end
 
 ---
 --- This function gets an array filled with the moonlist database entries, sorted by period (ASC)
 ---
-function getMoons()	
+function getMoons()
 	local tMoons = DB.getChildren("moons.moonlist");
 	local aMoons = {};
 
-	for k,v in pairs(tMoons) do
+	for _,v in pairs(tMoons) do
 		table.insert(aMoons, v);
 	end
 	table.sort(aMoons, function(a,b) return a.getChild("period").getValue() < b.getChild("period").getValue() end);
@@ -182,7 +184,7 @@ function getEpochDay(nYear, nMonths)
 	nMonths = nMonths or CalendarManager.getMonthsInYear();
 
 	local epoch = 0;
-	for nCurrentYear = 0, nYear - 1 do		
+	for nCurrentYear = 0, nYear - 1 do
 		for nCurrentMonth = 1, nMonths do
 			epoch = epoch + CalendarManager.getDaysInMonth(nCurrentMonth, nCurrentYear);
 		end
