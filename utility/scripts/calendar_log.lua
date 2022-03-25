@@ -1,7 +1,6 @@
 --
 -- Please see the LICENSE.md file included with this distribution for attribution and copyright information.
 --
-
 local aEvents = {};
 local nSelMonth = 0;
 local nSelDay = 0;
@@ -10,11 +9,11 @@ local nSelDay = 0;
 --- This function has been modified to add some new event handlers.
 ---
 function onInit()
-	DB.addHandler("calendar.log", "onChildUpdate", onEventsChanged);
+	DB.addHandler('calendar.log', 'onChildUpdate', onEventsChanged);
 	buildEvents();
 
-	DB.addHandler("moons.moonlist","onChildAdded", onMoonCountUpdated);
-	DB.addHandler("moons.moonlist","onChildDeleted", onMoonCountUpdated);
+	DB.addHandler('moons.moonlist', 'onChildAdded', onMoonCountUpdated);
+	DB.addHandler('moons.moonlist', 'onChildDeleted', onMoonCountUpdated);
 
 	CalendarManager.registerChangeCallback(onCalendarChangedMoonTracker);
 	nSelMonth = currentmonth.getValue();
@@ -27,25 +26,21 @@ end
 --- This function has been modified to remove the new handlers added in the onInit() function.
 ---
 function onClose()
-	DB.removeHandler("calendar.log", "onChildUpdate", onEventsChanged);
-	DB.removeHandler("moons.moonlist","onChildAdded", onMoonCountUpdated);
-	DB.removeHandler("moons.moonlist","onChildDeleted", onMoonCountUpdated);
+	DB.removeHandler('calendar.log', 'onChildUpdate', onEventsChanged);
+	DB.removeHandler('moons.moonlist', 'onChildAdded', onMoonCountUpdated);
+	DB.removeHandler('moons.moonlist', 'onChildDeleted', onMoonCountUpdated);
 end
 
 function buildEvents()
 	aEvents = {};
 
-	for _,v in pairs(DB.getChildren("calendar.log")) do
-		local nYear = DB.getValue(v, "year", 0);
-		local nMonth = DB.getValue(v, "month", 0);
-		local nDay = DB.getValue(v, "day", 0);
+	for _, v in pairs(DB.getChildren('calendar.log')) do
+		local nYear = DB.getValue(v, 'year', 0);
+		local nMonth = DB.getValue(v, 'month', 0);
+		local nDay = DB.getValue(v, 'day', 0);
 
-		if not aEvents[nYear] then
-			aEvents[nYear] = {};
-		end
-		if not aEvents[nYear][nMonth] then
-			aEvents[nYear][nMonth] = {};
-		end
+		if not aEvents[nYear] then aEvents[nYear] = {}; end
+		if not aEvents[nYear][nMonth] then aEvents[nYear][nMonth] = {}; end
 		aEvents[nYear][nMonth][nDay] = v;
 	end
 end
@@ -70,9 +65,7 @@ function setSelectedDate(nMonth, nDay)
 	list.scrollToCampaignDate();
 end
 
-function addLogEntryToSelected()
-	addLogEntry(nSelMonth, nSelDay);
-end
+function addLogEntryToSelected() addLogEntry(nSelMonth, nSelDay); end
 
 function addLogEntry(nMonth, nDay)
 	local nYear = CalendarManager.getCurrentYear();
@@ -81,22 +74,20 @@ function addLogEntry(nMonth, nDay)
 	if aEvents[nYear] and aEvents[nYear][nMonth] and aEvents[nYear][nMonth][nDay] then
 		nodeEvent = aEvents[nYear][nMonth][nDay];
 	elseif Session.IsHost then
-		local nodeLog = DB.createNode("calendar.log");
+		local nodeLog = DB.createNode('calendar.log');
 		bEnableBuild = false;
 		nodeEvent = nodeLog.createChild();
 
-		DB.setValue(nodeEvent, "epoch", "string", DB.getValue("calendar.current.epoch", ""));
-		DB.setValue(nodeEvent, "year", "number", nYear);
-		DB.setValue(nodeEvent, "month", "number", nMonth);
-		DB.setValue(nodeEvent, "day", "number", nDay);
+		DB.setValue(nodeEvent, 'epoch', 'string', DB.getValue('calendar.current.epoch', ''));
+		DB.setValue(nodeEvent, 'year', 'number', nYear);
+		DB.setValue(nodeEvent, 'month', 'number', nMonth);
+		DB.setValue(nodeEvent, 'day', 'number', nDay);
 		bEnableBuild = true;
 
 		onEventsChanged();
 	end
 
-	if nodeEvent then
-		Interface.openWindow("advlogentry", nodeEvent);
-	end
+	if nodeEvent then Interface.openWindow('advlogentry', nodeEvent); end
 end
 
 function removeLogEntry(nMonth, nDay)
@@ -106,13 +97,9 @@ function removeLogEntry(nMonth, nDay)
 		local nodeEvent = aEvents[nYear][nMonth][nDay];
 
 		local bDelete = false;
-		if Session.IsHost then
-			bDelete = true;
-		end
+		if Session.IsHost then bDelete = true; end
 
-		if bDelete then
-			nodeEvent.delete();
-		end
+		if bDelete then nodeEvent.delete(); end
 	end
 end
 
@@ -159,9 +146,7 @@ function updateDisplay()
 	local sDate = CalendarManager.getDateString(sCampaignEpoch, nCampaignYear, nCampaignMonth, nCampaignDay, true, true);
 	viewdate.setValue(sDate);
 
-	if aEvents[nCampaignYear] and
-			aEvents[nCampaignYear][nSelMonth] and
-			aEvents[nCampaignYear][nSelMonth][nSelDay] then
+	if aEvents[nCampaignYear] and aEvents[nCampaignYear][nSelMonth] and aEvents[nCampaignYear][nSelMonth][nSelDay] then
 		button_view.setVisible(true);
 		button_addlog.setVisible(false);
 	else
@@ -169,25 +154,21 @@ function updateDisplay()
 		button_addlog.setVisible(true);
 	end
 
-	for _,v in pairs(list.getWindows()) do
+	for _, v in pairs(list.getWindows()) do
 		local nMonth = v.month.getValue();
 
 		local bCampaignMonth = false;
 		local bLogMonth = false;
-		if nMonth == nCampaignMonth then
-			bCampaignMonth = true;
-		end
-		if nMonth == nSelMonth then
-			bLogMonth = true;
-		end
+		if nMonth == nCampaignMonth then bCampaignMonth = true; end
+		if nMonth == nSelMonth then bLogMonth = true; end
 
 		if bCampaignMonth then
-			v.label_period.setColor("5A1E33");
+			v.label_period.setColor('5A1E33');
 		else
-			v.label_period.setColor("000000");
+			v.label_period.setColor('000000');
 		end
 
-		for _,y in pairs(v.list_days.getWindows()) do
+		for _, y in pairs(v.list_days.getWindows()) do
 			local nDay = y.day.getValue();
 			if nDay > 0 then
 				local nodeEvent = nil;
@@ -212,11 +193,9 @@ function populateMoonPhaseDisplay(nMonth, nDay)
 	nMonth = nMonth or nSelMonth;
 	nDay = nDay or nSelDay;
 
-	if self.moons and self.moons.closeAll then
-		self.moons.closeAll();
-	end
+	if self.moons and self.moons.closeAll then self.moons.closeAll(); end
 	if nSelMonth and nSelDay then
-		local epoch = DB.getValue("moons.epochday", 0);
+		local epoch = DB.getValue('moons.epochday', 0);
 		local moons = MoonManager.getMoons();
 
 		local days;
@@ -230,11 +209,7 @@ function populateMoonPhaseDisplay(nMonth, nDay)
 			epoch = epoch + days;
 		end
 
-		if self.moons and self.moons.addEntry then
-			for _,m in ipairs(moons) do
-				self.moons.addEntry(m, epoch);
-			end
-		end
+		if self.moons and self.moons.addEntry then for _, m in ipairs(moons) do self.moons.addEntry(m, epoch); end end
 
 	end
 end
@@ -245,16 +220,16 @@ end
 ---
 function setMoonFrame()
 	local hasMoons = false;
-	local moons = DB.getChildren("moons.moonlist");
-    for _,v in pairs(moons) do --luacheck: ignore
-        hasMoons = true;
-        break;
-    end
-    if hasMoons then
-		self.list.setStaticBounds( 25,135,-30,-65 );
+	local moons = DB.getChildren('moons.moonlist');
+	for _, v in pairs(moons) do -- luacheck: ignore
+		hasMoons = true;
+		break
+	end
+	if hasMoons then
+		self.list.setStaticBounds(25, 135, -30, -65);
 		self.moons.setVisible(true);
 	else
-		self.list.setStaticBounds( 25,75,-30,-65 );
+		self.list.setStaticBounds(25, 75, -30, -65);
 		self.moons.setVisible(false);
 	end
 end
@@ -262,6 +237,4 @@ end
 ---
 --- This function gets called whenever a moon is added or deleted to rebuild the calendar window.
 ---
-function onMoonCountUpdated()
-	setMoonFrame();
-end
+function onMoonCountUpdated() setMoonFrame(); end
