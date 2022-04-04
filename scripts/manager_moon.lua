@@ -41,35 +41,31 @@ local function outputDate_new(...)
 
 end
 
-function onInit()
-	if Session.IsHost then initializeDatabase(); end
-
-	outputDate_old = CalendarManager.outputDate;
-	CalendarManager.outputDate = outputDate_new;
-end
-
 ---
 --- This function gets the string name for the current moon phase.
 ---
 function getPhaseName(nPhase) return aMoonPhases[nPhase]; end
 
 ---
---- This function sets up the required database nodes for storing Moon data
----
---- corrected by @mattekure to make moons public to players
----
-function initializeDatabase()
-	local nNode = DB.createNode('moons');
-	DB.setPublic(nNode, true);
-	DB.createNode('moons.epochday', 'number');
-	DB.createNode('moons.epochyear', 'number');
-	DB.createNode('moons.moonlist');
-end
-
----
 --- This function is used to calculate the phases of the moon for every day in the current year.
 ---
 function calculateEpochDay()
+
+	-- This function is used to calculate how many days it has been from day 0 to the first day of the current year,
+	-- which is used to track where the current moon phases are calculated from.
+	-- nYear [number] (optional): The year to calculate the epoch for. Defaults to CalendarManager.getCurrentYear().
+	-- nMonths [number] (optional): The number of months in the year. Defaults to CalendarManager.getMonthsInYear();
+	function getEpochDay(nYear, nMonths)
+		nYear = nYear or CalendarManager.getCurrentYear();
+		nMonths = nMonths or CalendarManager.getMonthsInYear();
+	
+		local epoch = 0;
+		for nCurrentYear = 0, nYear - 1 do
+			for nCurrentMonth = 1, nMonths do epoch = epoch + CalendarManager.getDaysInMonth(nCurrentMonth, nCurrentYear); end
+		end
+		return epoch;
+	end
+
 	local nYear = CalendarManager.getCurrentYear();
 	local nMonths = CalendarManager.getMonthsInYear();
 	-- local nFirstDay = CalendarManager.getLunarDay(nYear, 1, 1);
@@ -166,20 +162,20 @@ function calculatePhase(oMoon, nEpoch)
 	-- return math.floor(f*8) + 1;
 end
 
----
---- This function is used to calculate how many days it has been from day 0 to the first day of the current year,
---- which is used to track where the current moon phases are calculated from.
----
---- nYear [number] (optional): The year to calculate the epoch for. Defaults to CalendarManager.getCurrentYear().
---- nMonths [number] (optional): The number of months in the year. Defaults to CalendarManager.getMonthsInYear();
----
-function getEpochDay(nYear, nMonths)
-	nYear = nYear or CalendarManager.getCurrentYear();
-	nMonths = nMonths or CalendarManager.getMonthsInYear();
+function onInit()
 
-	local epoch = 0;
-	for nCurrentYear = 0, nYear - 1 do
-		for nCurrentMonth = 1, nMonths do epoch = epoch + CalendarManager.getDaysInMonth(nCurrentMonth, nCurrentYear); end
+	--- This function sets up the required database nodes for storing Moon data
+	--- corrected by @mattekure to make moons public to players
+	local function initializeDatabase()
+		local nNode = DB.createNode('moons');
+		DB.setPublic(nNode, true);
+		DB.createNode('moons.epochday', 'number');
+		DB.createNode('moons.epochyear', 'number');
+		DB.createNode('moons.moonlist');
 	end
-	return epoch;
+
+	if Session.IsHost then initializeDatabase(); end
+
+	outputDate_old = CalendarManager.outputDate;
+	CalendarManager.outputDate = outputDate_new;
 end
