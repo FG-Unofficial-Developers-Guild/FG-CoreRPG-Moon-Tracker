@@ -3,8 +3,7 @@
 --
 -- This array holds the string names for each moon phase.
 local aMoonPhases = { -- String names for each moon phase
-	'New Moon', 'Evening Crescent', 'First Quarter', 'Waxing Gibbous', 'Full Moon', 'Waning Gibbous', 'Last Quarter',
- 'Morning Crescent',
+	'New Moon', 'Evening Crescent', 'First Quarter', 'Waxing Gibbous', 'Full Moon', 'Waning Gibbous', 'Last Quarter', 'Morning Crescent',
 };
 
 local outputDate_old
@@ -58,7 +57,7 @@ function calculateEpochDay()
 	function getEpochDay(nYear, nMonths)
 		nYear = nYear or CalendarManager.getCurrentYear();
 		nMonths = nMonths or CalendarManager.getMonthsInYear();
-	
+
 		local epoch = 0;
 		for nCurrentYear = 0, nYear - 1 do
 			for nCurrentMonth = 1, nMonths do epoch = epoch + CalendarManager.getDaysInMonth(nCurrentMonth, nCurrentYear); end
