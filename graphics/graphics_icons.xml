@@ -7,18 +7,18 @@
 
 <root>
 	<!-- Buttons -->
-	<icon name="button_moon" file="graphics/buttons/button_moon.png" />
-	<icon name="button_moon_down" file="graphics/buttons/button_moon_down.png" />
+	<icon name="button_moon" file="graphics/buttons/button_moon.webp" />
+	<icon name="button_moon_down" file="graphics/buttons/button_moon_down.webp" />
 	
 	<!-- Icons -->
-	<icon name="moonphase1" file="graphics/icons/phase1.png" />
-	<icon name="moonphase2" file="graphics/icons/phase2.png" />
-	<icon name="moonphase3" file="graphics/icons/phase3.png" />
-	<icon name="moonphase4" file="graphics/icons/phase4.png" />
-	<icon name="moonphase5" file="graphics/icons/phase5.png" />
-	<icon name="moonphase6" file="graphics/icons/phase6.png" />
-	<icon name="moonphase7" file="graphics/icons/phase7.png" />
-	<icon name="moonphase8" file="graphics/icons/phase8.png" />
-	<icon name="nightsky-moontracker" file="graphics/night-sky-icon.png" />
+	<icon name="moonphase1" file="graphics/icons/phase1.webp" />
+	<icon name="moonphase2" file="graphics/icons/phase2.webp" />
+	<icon name="moonphase3" file="graphics/icons/phase3.webp" />
+	<icon name="moonphase4" file="graphics/icons/phase4.webp" />
+	<icon name="moonphase5" file="graphics/icons/phase5.webp" />
+	<icon name="moonphase6" file="graphics/icons/phase6.webp" />
+	<icon name="moonphase7" file="graphics/icons/phase7.webp" />
+	<icon name="moonphase8" file="graphics/icons/phase8.webp" />
+	<icon name="nightsky-moontracker" file="graphics/night-sky-icon.webp" />
 
 </root>

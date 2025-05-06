@@ -36,6 +36,8 @@ function onInit()
 	self.onDateChanged()
 end
 function onClose()
+	if super and super.onClose then super.onClose() end
+
 	DB.removeHandler("calendar.log", "onChildUpdate", self.onEventsChanged)
 	DB.removeHandler("calendar.current.day", "onUpdate", self.onDateChanged)
 	DB.removeHandler("calendar.current.month", "onUpdate", self.onDateChanged)
@@ -73,6 +75,8 @@ function buildEvents()
 end
 
 function onDateChanged()
+	if super and super.onDateChanged then super.onDateChanged() end
+
 	self.updateDisplay()
 	list.scrollToCampaignDate()
 
@@ -92,6 +96,8 @@ function onCalendarChanged()
 end
 
 function updateDisplay()
+	if super and super.updateDisplay then super.updateDisplay() end
+
 	local sCampaignEpoch = DB.getValue("calendar.current.epoch", 0)
 	local nCampaignYear = DB.getValue("calendar.current.year", 0)
 	local nCampaignMonth = DB.getValue("calendar.current.month", 0)

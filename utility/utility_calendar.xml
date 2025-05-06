@@ -2,8 +2,6 @@
 <root>
 	<windowclass name="calendar_main" merge="merge">
 		<script file="utility/scripts/calendar_log.lua" />
-		<sheetdata>
-		</sheetdata>
 	</windowclass>
 
 	<windowclass name="calendar_main_date" merge="merge">
@@ -19,8 +17,8 @@
 
 			<!-- This list shows the phases for each moon, if they are defined.-->
 			<windowlist name="moons">
-				<bounds>25,75,-30,30</bounds>
-				<frame name="groupbox" offset="15,15,20,15" />
+				<bounds>25,50,-30,30</bounds>
+				<frame name="groupbox" offset="10,10,15,10" />
 				<class>moonphase</class>
 				<columns width="155" fillwidth="true" />
 				<skipempty />
