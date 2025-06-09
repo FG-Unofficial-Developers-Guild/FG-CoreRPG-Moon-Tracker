@@ -9,9 +9,9 @@ local function onMoonTrackerConfigurationClosed()
 end
 
 function onButtonPress()
-	local oNode = DB.findNode("moons.moonlist")
+	local oNode = DB.findNode('moons.moonlist')
 	if oNode then
-		local oWindow = Interface.openWindow("moontracker_configuration", oNode.getNodeName())
+		local oWindow = Interface.openWindow('moontracker_configuration', oNode.getNodeName())
 		oWindow.registerCloseCallback(onMoonTrackerConfigurationClosed)
 		if oWindow and oWindow.name then
 			oWindow.name.setFocus()

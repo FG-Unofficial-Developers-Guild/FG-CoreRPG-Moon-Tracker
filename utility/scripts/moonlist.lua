@@ -23,7 +23,7 @@ function addEntry(bFocus)
 	local oWindow = createWindow()
 	oWindow.idelete.setVisible(bEditMode)
 	if bFocus then
-		oWindow["name"].setFocus()
+		oWindow['name'].setFocus()
 	end
 	return oWindow
 end

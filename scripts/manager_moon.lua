@@ -3,14 +3,14 @@
 --
 -- This array holds the string names for each moon phase.
 local aMoonPhases = { -- String names for each moon phase
-	"New Moon",
-	"Evening Crescent",
-	"First Quarter",
-	"Waxing Gibbous",
-	"Full Moon",
-	"Waning Gibbous",
-	"Last Quarter",
-	"Morning Crescent",
+	'New Moon',
+	'Evening Crescent',
+	'First Quarter',
+	'Waxing Gibbous',
+	'Full Moon',
+	'Waning Gibbous',
+	'Last Quarter',
+	'Morning Crescent',
 }
 
 local outputDate_old
@@ -19,7 +19,7 @@ local function outputDate_new(...)
 
 	local aMoons = getMoons()
 	if aMoons then
-		local nEpoch = DB.getValue("moons.epochday", 0)
+		local nEpoch = DB.getValue('moons.epochday', 0)
 
 		local nMonth = CalendarManager.getCurrentMonth()
 		local nDay = CalendarManager.getCurrentDay()
@@ -35,12 +35,12 @@ local function outputDate_new(...)
 		end
 
 		for _, moon in ipairs(aMoons) do
-			local msg = { sender = "", font = "chatfont", icon = "portrait_gm_token", mode = "story" }
-			local sMoonName = DB.getValue(moon, "name", "")
+			local msg = { sender = '', font = 'chatfont', icon = 'portrait_gm_token', mode = 'story' }
+			local sMoonName = DB.getValue(moon, 'name', '')
 			local nPhase = calculatePhase(moon, nEpoch)
 			local sPhaseName = getPhaseName(nPhase)
 			msg.text = sMoonName .. "'s phase is " .. sPhaseName
-			msg.icon = "moonphase" .. tostring(nPhase)
+			msg.icon = 'moonphase' .. tostring(nPhase)
 			Comm.deliverChatMessage(msg)
 		end
 	end
@@ -79,15 +79,15 @@ function calculateEpochDay()
 	-- local nFirstDay = CalendarManager.getLunarDay(nYear, 1, 1);
 	-- local nDaysInWeek = CalendarManager.getDaysInWeek();
 
-	local epochyear = DB.getValue("moons.epochyear", 0)
+	local epochyear = DB.getValue('moons.epochyear', 0)
 	-- local epoch = DB.getValue("moons.epochday", 0);
 	-- local aMoons = getMoons();
 
 	if epochyear ~= nYear - 1 then
 		local epoch = getEpochDay(nYear, nMonths)
 
-		DB.setValue("moons.epochyear", "number", nYear - 1)
-		DB.setValue("moons.epochday", "number", epoch)
+		DB.setValue('moons.epochyear', 'number', nYear - 1)
+		DB.setValue('moons.epochday', 'number', epoch)
 	end
 
 	-- for nCurrentMonth = 1, nMonths do
@@ -101,14 +101,14 @@ end
 --- This function gets an array filled with the moonlist database entries, sorted by period (ASC)
 ---
 function getMoons()
-	local tMoons = DB.getChildren("moons.moonlist")
+	local tMoons = DB.getChildren('moons.moonlist')
 	local aMoons = {}
 
 	for _, v in pairs(tMoons) do
 		table.insert(aMoons, v)
 	end
 	table.sort(aMoons, function(a, b)
-		return DB.getChild(a, "period").getValue() < DB.getChild(b, "period").getValue()
+		return DB.getChild(a, 'period').getValue() < DB.getChild(b, 'period').getValue()
 	end)
 	return aMoons
 end
@@ -117,11 +117,11 @@ end
 --- This function is used to sort two moon database nodes. It sorts first by period, then by name.
 ---
 function sortMoons(a, b)
-	local aPeriod = DB.getChild(a, "period").getValue()
-	local bPeriod = DB.getChild(b, "period").getValue()
+	local aPeriod = DB.getChild(a, 'period').getValue()
+	local bPeriod = DB.getChild(b, 'period').getValue()
 	if aPeriod == bPeriod then
-		local aName = DB.getChild(a, "name").getValue()
-		local bName = DB.getChild(b, "name").getValue()
+		local aName = DB.getChild(a, 'name').getValue()
+		local bName = DB.getChild(b, 'name').getValue()
 
 		return aName > bName
 	else
@@ -137,9 +137,9 @@ end
 --- corrected by @Arnagus to apply full and new moon only on specific (or multiple) days and not equally to waning or waxing moon phases
 ---
 function calculatePhase(oMoon, nEpoch)
-	local cycle = DB.getChild(oMoon, "period").getValue()
-	local x = ((nEpoch - DB.getChild(oMoon, "shift").getValue()) / cycle)
-	local o = (DB.getChild(oMoon, "duration").getValue() - 1) / 4
+	local cycle = DB.getChild(oMoon, 'period').getValue()
+	local x = ((nEpoch - DB.getChild(oMoon, 'shift').getValue()) / cycle)
+	local o = (DB.getChild(oMoon, 'duration').getValue() - 1) / 4
 	local f = x - math.floor(x)
 	local s = 1 / cycle
 	--- calculations with normalized periods resulting in a single (or multiple with duration>1) day new/full moon and single day quarter moon
@@ -178,11 +178,11 @@ function onInit()
 	--- This function sets up the required database nodes for storing Moon data
 	--- corrected by @mattekure to make moons public to players
 	local function initializeDatabase()
-		local nNode = DB.createNode("moons")
+		local nNode = DB.createNode('moons')
 		DB.setPublic(nNode, true)
-		DB.createNode("moons.epochday", "number")
-		DB.createNode("moons.epochyear", "number")
-		DB.createNode("moons.moonlist")
+		DB.createNode('moons.epochday', 'number')
+		DB.createNode('moons.epochyear', 'number')
+		DB.createNode('moons.moonlist')
 	end
 
 	if Session.IsHost then
